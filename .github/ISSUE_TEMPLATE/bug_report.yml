@@ -1,0 +1,43 @@
+name: Bug report
+description: Something in Cloak Proxy doesn't work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting. Please remove tokens, cookies, passwords and private hostnames from anything you paste. For security issues, use https://subcloak.com/security instead.
+  - type: input
+    id: version
+    attributes:
+      label: Cloak Proxy version
+      description: Cloak Proxy › About Cloak Proxy
+      placeholder: "0.2.0"
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and Mac
+      placeholder: "macOS 15.6, Apple silicon"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Turn on SSL Proxying for api.example.com
+        2. Open the app
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: The log is at ~/Library/Logs/CloakProxy/cloak-proxy.log. Remove secrets before pasting.

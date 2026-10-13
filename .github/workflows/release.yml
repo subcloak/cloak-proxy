@@ -1,0 +1,64 @@
+# Mirrors the installer from download.subcloak.com as a GitHub release.
+# Runs every hour; does nothing unless the download site has a version that
+# isn't released here yet. Checks the SHA-256 before publishing.
+name: Release
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read the current installer
+        id: info
+        run: |
+          info=$(curl -fsS https://download.subcloak.com/api/info)
+          echo "version=$(jq -r .mac.version <<<"$info")" >> "$GITHUB_OUTPUT"
+          echo "sha256=$(jq -r .mac.sha256 <<<"$info")" >> "$GITHUB_OUTPUT"
+
+      - name: Check for an existing release
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.info.outputs.version }}
+        run: |
+          if [ -z "$VERSION" ] || [ "$VERSION" = "null" ]; then echo "No version published"; echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if gh release view "v$VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then echo "skip=true" >> "$GITHUB_OUTPUT"; else echo "skip=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Download and verify
+        if: steps.existing.outputs.skip == 'false'
+        env:
+          SHA256: ${{ steps.info.outputs.sha256 }}
+        run: |
+          url=$(curl -fsS -X POST https://download.subcloak.com/api/download \
+            -H 'Content-Type: application/json' -d '{"platform":"mac","source":"github-release"}' | jq -r .url)
+          curl -fsSL -o Cloak-Proxy.dmg "$url"
+          echo "$SHA256  Cloak-Proxy.dmg" | sha256sum --check
+
+      - name: Publish the release
+        if: steps.existing.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.info.outputs.version }}
+          SHA256: ${{ steps.info.outputs.sha256 }}
+        run: |
+          cat > notes.md <<NOTES
+          Download **Cloak-Proxy.dmg** below (Apple silicon and Intel, macOS 14 or later), or from [subcloak.com](https://subcloak.com/apps/cloak-proxy?utm_source=github).
+
+          SHA-256: \`$SHA256\`
+
+          Cloak Proxy isn't notarized yet: the first time, open System Settings › Privacy & Security and click **Open Anyway**. [Install guide](https://docs.subcloak.com/cloak-proxy/getting-started/install/)
+
+          What's new: [release notes](https://docs.subcloak.com/cloak-proxy/reference/release-notes/) · [CHANGELOG.md](https://github.com/$GITHUB_REPOSITORY/blob/main/CHANGELOG.md)
+          NOTES
+          gh release create "v$VERSION" Cloak-Proxy.dmg --repo "$GITHUB_REPOSITORY" --title "Cloak Proxy $VERSION" --notes-file notes.md
