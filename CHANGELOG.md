@@ -2,6 +2,24 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.2.2 (October 2026)
+
+### New
+- **Redesigned main window**: a denser traffic list with one monospaced URL column, real app icons, method and status pills and a status dot; compact filter tabs with search in the toolbar (⌘F); a status capsule showing where Cloak Proxy is listening; a sidebar with Favorites, Apps and Domains; and a bottom bar with Clear, Filter, Auto Select and an "n tools on" popover. The inspector can sit below the list or beside it.
+- **Inspector**: a summary bar with method and status pills, compact tabs, and a code view with line numbers, syntax colours, folding and find (⌘F) for Raw and Pretty bodies.
+- **Columns for any request or response header**, and **traffic tabs** (⌘T), each with its own filters, sidebar selection and sort.
+- **Import Charles settings**: Tools › Import Rules… reads a Charles settings export (or its preferences file) and shows what maps before anything is added.
+- **Decode Protobuf and gRPC with your own .proto files**, in the proxy and the API client.
+- **fetch() in scripts**: `onRequest` and `onResponse` can be async and call other APIs.
+- **Captured traffic is kept when Cloak Proxy quits**, on by default for new installs. Large request and response bodies are kept on disk, and a session can hold up to 500,000 requests.
+- **Help menu** with links to the docs, and **?** buttons that open the docs for the window you're in.
+- **Check for Updates…**, plus an optional daily check (off by default) that only asks download.subcloak.com for the latest version number.
+- A new install window in the DMG.
+
+### Fixed
+- Adding or editing rules through the control API or MCP failed when a Mock Set existed.
+- Line numbers in the code view could overlap the text after scrolling to the top.
+
 ## 0.2.1 (October 2026)
 
 ### New
