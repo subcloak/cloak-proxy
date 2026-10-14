@@ -2,6 +2,16 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.2.3 (October 2026)
+
+### New
+- **A real body editor** for Breakpoint, Map Local, Mock Sets, Compose and the API client: a code view with line numbers, syntax colours, folding, find and replace and undo, or an editable JSON **Tree** (edit values and types, rename, add, duplicate, move and delete keys, filter, copy paths, JSONPath and jq). Format, Minify, Sort keys and Revert, with the line and column of any JSON error. Form bodies get a table, binary bodies a hex view.
+- **Traffic by device and app**: requests from an iPhone or iPad that uses your Mac as its proxy are named by the app in their User-Agent, and a **Devices** group in the sidebar lists each device with its apps. Rename a device from its right-click menu.
+- **Install on iPhone or iPad** on the certificate page serves the certificate as a configuration profile, so Safari offers to install it.
+
+### Fixed
+- **Decrypt all of this device's HTTPS…** now asks first, and if a device refuses the certificate three times in two minutes, decryption is turned off for it so its apps keep working.
+
 ## 0.2.2 (October 2026)
 
 ### New
