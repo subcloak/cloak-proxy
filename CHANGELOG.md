@@ -2,6 +2,18 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.3.0 (October 2026)
+
+### New
+- **Doctor: why isn't my traffic showing?** Tools › Doctor… explains per app or device what is stopping its requests (an app that skips the proxy, certificate pinning, an untrusted certificate, HTTP/3, the macOS proxy off or changed, a VPN, paused recording, filters, muting) with the evidence and one fix. Its Connections view logs every connection's DNS, connect and TLS times and why it failed. New MCP tool `diagnose_capture` (91 tools).
+- **Split View**: two traffic panes side by side (View › Split View, ⌥⌘\\), each with its own filters, sidebar selection, sort and selection.
+- **Web companion**: pair Safari or Chrome on a phone, tablet or another computer and watch your Mac's traffic live, with no app to install (Settings › Companion).
+- **In-app SDK**: add the CloakProxyKit Swift package to a debug build of your iOS or macOS app and its URLSession requests show up under the app's name, with no proxy settings or certificate.
+
+### Improved
+- Much faster with lots of traffic: incremental filtering, search and sidebar counts cut main-thread work by 60–90%, autosave writes only what changed, and the proxy listens in under a second while a 300,000-request session loads.
+- The Settings window is wider so all its tabs fit.
+
 ## 0.2.3 (October 2026)
 
 ### New
