@@ -2,6 +2,22 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.4.1 (October 2026)
+
+### New
+- **Query language** in the filter bar: `status:5xx app:ShopApp dur:>500ms gql:CreateOrder -host:cdn.*`, with autocomplete, saved queries, and **Highlight and Extract Rules** that tint rows and pull values into columns. `cloakctl query` runs the same queries on HAR files and sessions.
+- **Live sharing:** Proxy › Share Live Traffic… gives a read-only link your colleague opens in a browser on the same network. Your computer serves it itself, secrets are hidden, and every share expires. Nothing is uploaded.
+- **Browser extension** for Chrome, Edge, Brave and Firefox, loaded unpacked: each request gets its tab, page and initiator, one tab can be recorded without a proxy, and console errors go into bug reports.
+- **API client:** `.http` files (VS Code REST Client and JetBrains), shared and inherited headers, environments based on another, `.env` files, preview tabs and Go to Request (⌘P).
+- 131 MCP tools.
+
+### Linux beta
+- Nearly every Mac window is now on Linux: Privacy Map, Authorization Matrix, API Contracts, Release Diff, Make Tests, Compare Environments, Failure Scenarios, Distributed Tracing, the Doctor, Report Bug, DNS capture for apps that ignore the proxy (with Undo All System Changes), the in-app SDK listener, Protobuf settings and Decode As, certificate regeneration and your own CA, full menus, keyboard shortcuts and an update check, plus the API client's other protocols, runner, load tests, mocks, flows, monitors, specs, Git and Agent Mode.
+- Fixed: a file-descriptor leak in API client scripts, launched apps and terminals ignoring quit signals and Ctrl-C, and `cloakctl mcp` hanging at the end of its input.
+
+### Fixed
+- A rare crash when a TCP, MQTT or WebSocket server hung up while the API client was connecting.
+
 ## 0.4.0 (October 2026)
 
 ### New
