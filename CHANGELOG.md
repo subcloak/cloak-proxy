@@ -2,6 +2,27 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.4.0 (October 2026)
+
+### New
+- **Cloak Proxy for Linux (beta)**: the same engine in a GTK window on Ubuntu 24.04+, Debian 13+ and other desktops with GTK 4 and WebKitGTK 6.0. Ships as a `.deb` and a portable `.tar.gz`. Capture and decryption, the traffic list and inspector, the debugging tools, breakpoints, Compose, Insights, the API client for HTTP and GraphQL, `cloakctl` and the MCP server; `cloak-proxy --headless` for servers and CI.
+- **LLM Inspector**: an AI tab for OpenAI, Anthropic, Gemini, Ollama and compatible calls, with tokens, cost, time to first token, the context window breakdown, the prompt-cache break point, the prompt as a transcript and a replay of the streamed reply. Insights › AI adds up spend.
+- **Streaming responses**: SSE, JSON-lines and multipart responses pass through as they arrive, with a live Messages tab and GraphQL subscriptions.
+- **Edit Protobuf and gRPC as JSON** in breakpoints, Compose and Map Local; gRPC status for every call.
+- **Rule conditions** (header, query, JSON body, GraphQL operation) for every tool, and a GraphQL Errors filter.
+- **Rule folders and sets**: switch a whole scenario on or off.
+- **Failure scenarios** (⌥⌘F): timeouts, resets, truncated and trickled bodies, first-N or percentage failures, with ten templates.
+- **One-click capture targets**: a capturing browser profile (⇧⌘B), Electron apps, Docker Compose, Flutter and Android debug configs.
+- **Distributed tracing**: W3C, B3, Jaeger, Datadog, X-Ray and Sentry headers, broken propagation, Open in your tracing backend.
+- **Report Bug** (⇧⌥⌘B): a bundle with a summary, a redacted HAR, a replayable flow and an optional screen recording, or filed to GitHub, Jira or Linear.
+- **Authorization matrix** (⌥⌘A): replay a session as other users to find IDOR / broken object-level authorization.
+- **API contract checking** (⇧⌥⌘K): check live traffic against OpenAPI specs, with coverage.
+- **Release diff** (⇧⌥⌘D): compare two builds' traffic endpoint by endpoint.
+- **Make tests from traffic**, **Compare environments**, agent skills and redaction for AI assistants, and a Toxiproxy-compatible API. 118 MCP tools.
+
+### Improved
+- A redesigned Privacy Map, a centred toolbar, plain-language TLS errors, a list of servers without certificate checks, and essential Apple services (push, activation, app verification) are never decrypted.
+
 ## 0.3.0 (October 2026)
 
 ### New
