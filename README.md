@@ -27,14 +27,13 @@ Cloak Proxy decrypts HTTPS, lets you pause, mock and rewrite any request, catche
 | **API client** | Collections, environments, tests, flows and monitors, stored as plain files you can keep in Git |
 | **Inspect** | JSON tree, jq and JSONPath, Protobuf, request diffs, copy as cURL or 21 other languages, types from JSON |
 | **Share** | HAR, Charles sessions, CSV, Postman collections and OpenAPI, with secret redaction |
-| **Automate** | An MCP server with 86 tools, and `cloakctl` for headless runs in CI |
+| **Automate** | An MCP server with 131 tools, and `cloakctl` for headless runs in CI |
 
 ## Install
 
 1. Download `Cloak-Proxy.dmg` from [subcloak.com/apps/cloak-proxy](https://subcloak.com/apps/cloak-proxy?utm_source=github) or from [Releases](https://github.com/subcloak/cloak-proxy/releases).
 2. Optional: check the file with `shasum -a 256 ~/Downloads/Cloak-Proxy.dmg` and compare it with the SHA-256 on the download page or in the release notes.
-3. Drag Cloak Proxy into Applications and open it.
-4. Cloak Proxy isn't notarized yet, so macOS blocks the first launch. Open **System Settings › Privacy & Security**, scroll down and click **Open Anyway**. You only do this once.
+3. Drag Cloak Proxy into Applications and open it. It's signed with a Developer ID and notarized by Apple, so it opens like any other app.
 
 Step by step, with screenshots: [Install Cloak Proxy](https://docs.subcloak.com/cloak-proxy/getting-started/install/).
 

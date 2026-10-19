@@ -2,6 +2,42 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.4.2 (October 2026)
+
+Cloak Proxy is now **signed with a Developer ID and notarized by Apple**: it opens like any other app, with no Open Anyway step.
+
+### New
+- **Pausing recording keeps Cloak Proxy's hands off your traffic:** nothing is decrypted and no rules run, and decrypted connections close once their requests finish, so apps reconnect untouched. **Keep intercepting, just don't record** in Settings › General keeps the old behaviour.
+- **Sign-in pages and bot checks are never decrypted by default:** Google, Apple Account, Microsoft and Okta sign-in hosts and Cloudflare's challenge host, each with a **Decrypt anyway** switch. The Doctor explains Cloudflare challenges and refused sign-ins, with **Stop decrypting**, and adding a whole browser to SSL Proxying warns first and offers the Capturing Browser.
+- **Ask before AI features send anything:** the first time Agent Mode or an AI request sends to a provider, you see what goes where and allow it once per provider; **Settings › Privacy** lists and revokes them. Agent tools that change things ask too (Allow Once, Always, Deny), and unattended monitors and schedules deny and log them.
+- **Workspace trust:** scripts and local MCP commands in a workspace you import, clone or pull don't run until you click **Trust**.
+- **The upstream proxy covers everything:** tunnels Cloak Proxy doesn't decrypt, WebSockets and SOCKS5 with a username and password, plus a **Don't use it for** list and a Doctor finding when the proxy refuses.
+- **WebSocket rules:** Block List, Map Remote, Rewrite and request breakpoints apply to WebSocket handshakes, and `ws://` / `wss://` rules match.
+- **Java and Docker:** `cloakctl run`, the terminal setup and Docker capture set `JAVA_TOOL_OPTIONS` with a generated truststore, so JVMs go through the proxy; Docker build capture is opt-in.
+- **Optional anonymous install counts** (off by default) and a **login check** that restores your network settings after a crash (Settings › General, off by default).
+
+### Improved
+- Large downloads stream straight through instead of being held in memory (the record keeps the first 32 MB), quiet streams and long-polls aren't cut after 2 minutes, `te: trailers` reaches gRPC servers, and apps that wait for the server to speak first (SMTP, SSH, databases) work through CONNECT.
+- Certificates follow the name the app asks for (SNI) when it connects by IP address, and handle hosts with a trailing dot.
+- Scripts stop after 5 seconds instead of hanging every request, see binary bodies as `bodyBytes`, and keep header order.
+- OAuth 2 tokens refresh automatically before they expire (with an off switch); the token request follows the request's SSL setting. API client WebSocket and gRPC requests can go through Cloak Proxy.
+- With **Allow other devices** on and no device list, only devices on your local network can connect; the proxy also listens on IPv6 localhost, and the Doctor names the app holding a busy port and offers another.
+- New network adapters get the system proxy while it's on, your proxy bypass list is kept, and an unplugged adapter no longer asks for your password.
+- zstd responses are labelled instead of shown as garbage, and decoding stops at 64 MB.
+- MCP tools say which are read-only, destructive or reach other hosts.
+
+### Fixed
+- **Copy as cURL** can no longer make curl upload a local file when a body starts with `@`.
+- API client passwords and OAuth tokens stay out of Git-tracked workspace files and exports.
+- A Git pull with conflicts no longer deletes collection files; the conflicted files are named.
+- A damaged autosave is kept aside and its readable requests recovered, instead of being silently replaced.
+- Quitting no longer restores another tool's dead proxy or leaves Cloak Proxy's own proxy on (no internet afterwards).
+- HAR import of times without a time zone, and the Flutter setup no longer shows a made-up IP address.
+- `cloakctl run` commands trust the system's certificates as well as Cloak Proxy's.
+
+### Linux beta
+- Automatic update checks are off until you turn them on, as on the Mac. RPM and AppImage packages and man pages follow with the Linux 0.4.2 packages.
+
 ## 0.4.1 (October 2026)
 
 ### New
