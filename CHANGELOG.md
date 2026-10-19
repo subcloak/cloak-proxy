@@ -36,7 +36,9 @@ Cloak Proxy is now **signed with a Developer ID and notarized by Apple**: it ope
 - `cloakctl run` commands trust the system's certificates as well as Cloak Proxy's.
 
 ### Linux beta
-- Automatic update checks are off until you turn them on, as on the Mac. RPM and AppImage packages and man pages follow with the Linux 0.4.2 packages.
+- **RPM and AppImage:** Cloak Proxy for Linux now also comes as an RPM for Fedora 43+ and RHEL 10-compatible distributions (`sudo dnf install ./cloak-proxy-0.4.2-1.x86_64.rpm`), with the same certificate and DNS capture helpers as the `.deb`, and as an AppImage that runs on any distribution with WebKitGTK 6.0 without installing anything. The AppImage can't change the system's trusted certificates or capture apps through DNS, and says so; `--integrate` adds it to your app menu and puts `cloak-proxy` and `cloakctl` on your PATH.
+- **Man pages:** `man cloak-proxy` and `man cloakctl`, in the `.deb`, the RPM, the AppImage and the portable folder.
+- Automatic update checks are off until you turn them on, as on the Mac.
 
 ## 0.4.1 (October 2026)
 

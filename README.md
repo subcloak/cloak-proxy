@@ -37,6 +37,10 @@ Cloak Proxy decrypts HTTPS, lets you pause, mock and rewrite any request, catche
 
 Step by step, with screenshots: [Install Cloak Proxy](https://docs.subcloak.com/cloak-proxy/getting-started/install/).
 
+Or with Homebrew: `brew install --cask subcloak/tap/cloak-proxy`.
+
+**Linux (beta):** a `.deb` for Debian and Ubuntu, an RPM for Fedora and RHEL 10, or an AppImage or portable `.tar.gz` for any distribution with WebKitGTK 6.0, on x86_64 and ARM64, from the same download page or [Releases](https://github.com/subcloak/cloak-proxy/releases). See [Install on Linux](https://docs.subcloak.com/cloak-proxy/getting-started/install-linux/).
+
 ## This repository
 
 Cloak Proxy's source isn't public. This repository holds the issue tracker, release downloads and the changelog.
