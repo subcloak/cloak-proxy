@@ -61,7 +61,7 @@ Or with Homebrew: `brew install --cask subcloak/tap/cloak-proxy`.
 
 Subcloak is a security testing company: we test web apps, APIs and AI agents for a living, and a debugging proxy is open on our screens all day. We built Cloak Proxy for our own work and give it away. Security testing pays for it, so there's no paid tier to upsell and no data to sell: the app has no account, no analytics, and update checks are off until you turn them on.
 
-The source is closed for now so we can keep one maintained product without supporting forks. The in-app SDK, [CloakProxyKit](https://github.com/subcloak/CloakProxyKit), is MIT. Releases are signed and notarized by Apple, and [SECURITY.md](SECURITY.md) explains how to report issues.
+The app's source isn't public. The in-app SDK, [CloakProxyKit](https://github.com/subcloak/CloakProxyKit), is MIT. Releases are signed and notarized by Apple, and [SECURITY.md](SECURITY.md) explains how to report issues.
 
 ## This repository
 
