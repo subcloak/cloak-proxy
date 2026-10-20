@@ -27,7 +27,7 @@ Cloak Proxy decrypts HTTPS, lets you pause, mock and rewrite any request, catche
 | **API client** | Collections, environments, tests, flows and monitors, stored as plain files you can keep in Git |
 | **Inspect** | JSON tree, jq and JSONPath, Protobuf, request diffs, copy as cURL or 21 other languages, types from JSON |
 | **Share** | HAR, Charles sessions, CSV, Postman collections and OpenAPI, with secret redaction |
-| **Automate** | An MCP server with 131 tools, and `cloakctl` for headless runs in CI |
+| **Automate** | An MCP server with 133 tools, and `cloakctl` for headless runs in CI |
 
 ## Install
 

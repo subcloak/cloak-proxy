@@ -44,8 +44,16 @@ jobs:
             -H 'Content-Type: application/json' -d '{"platform":"mac","source":"github-release"}' | jq -r .url)
           curl -fsSL -o Cloak-Proxy.dmg "$url"
           echo "$SHA256  Cloak-Proxy.dmg" | sha256sum --check
-          # Linux packages of the same version, when the download site has them (each checked against its SHA-256).
           info=$(curl -fsS https://download.subcloak.com/api/info)
+          # The installer package for teams, when the download site has one of the same version.
+          if [ "$(jq -r '."mac-pkg".version // empty' <<<"$info")" = "$(jq -r .mac.version <<<"$info")" ]; then
+            link=$(curl -fsS -X POST https://download.subcloak.com/api/download -H 'Content-Type: application/json' \
+              -d '{"platform":"mac-pkg","source":"github-release"}' | jq -r .url)
+            curl -fsSL -o Cloak-Proxy.pkg "$link"
+            echo "$(jq -r '."mac-pkg".sha256' <<<"$info")  Cloak-Proxy.pkg" | sha256sum --check
+            jq -r '."mac-pkg".sha256' <<<"$info" > pkg-sha256.txt
+          fi
+          # Linux packages of the same version, when the download site has them (each checked against its SHA-256).
           for key in $(jq -r --arg v "$(jq -r .mac.version <<<"$info")" 'to_entries[] | select(.key | startswith("linux-")) | select(.value.version == $v) | .key' <<<"$info"); do
             name=$(jq -r --arg k "$key" '.[$k].name' <<<"$info"); sum=$(jq -r --arg k "$key" '.[$k].sha256' <<<"$info")
             link=$(curl -fsS -X POST https://download.subcloak.com/api/download -H 'Content-Type: application/json' \
@@ -67,10 +75,12 @@ jobs:
 
           SHA-256: \`$SHA256\`
 
+          $( [ -s pkg-sha256.txt ] && echo "**For teams:** **Cloak-Proxy.pkg**, the same app as a signed, notarized installer package for MDM (SHA-256 \`$(cat pkg-sha256.txt)\`). [Deploy to a team's Macs](https://docs.subcloak.com/cloak-proxy/getting-started/deploy-to-a-team/)" )
+
           $( [ -s linux-files.txt ] && echo "**Linux (beta):** the \`.deb\` and RPM packages, AppImages and portable \`.tar.gz\` archives below (amd64 and arm64). [Install on Linux](https://docs.subcloak.com/cloak-proxy/getting-started/install-linux/)" )
 
           Signed with a Developer ID and notarized by Apple. [Install guide](https://docs.subcloak.com/cloak-proxy/getting-started/install/)
 
           What's new: [release notes](https://docs.subcloak.com/cloak-proxy/reference/release-notes/) · [CHANGELOG.md](https://github.com/$GITHUB_REPOSITORY/blob/main/CHANGELOG.md)
           NOTES
-          gh release create "v$VERSION" Cloak-Proxy.dmg $( [ -f linux-files.txt ] && cat linux-files.txt ) --repo "$GITHUB_REPOSITORY" --title "Cloak Proxy $VERSION" --notes-file notes.md
+          gh release create "v$VERSION" Cloak-Proxy.dmg $( [ -f Cloak-Proxy.pkg ] && echo Cloak-Proxy.pkg ) $( [ -f linux-files.txt ] && cat linux-files.txt ) --repo "$GITHUB_REPOSITORY" --title "Cloak Proxy $VERSION" --notes-file notes.md

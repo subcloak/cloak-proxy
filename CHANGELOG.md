@@ -2,6 +2,23 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.5.0 (October 2026)
+
+Mac only: the Linux beta stays on 0.4.2.
+
+### New
+- **App Capture: capture apps that ignore the proxy.** Go and Rust tools, `curl` and other command-line tools, Node.js scripts and many Electron apps connect straight to the internet whatever the macOS proxy says. App Capture (Proxy › Device & Runtime Setup… › App Capture) sends the apps you pick through Cloak Proxy anyway, with a network extension you allow once in System Settings. Their connections show up under the app's name, decrypted where SSL Proxying says so, with your rules applied. It's off by default, works app by app, blocks the picked apps' HTTP/3 so they fall back to TCP, and steps aside whenever Cloak Proxy isn't running. The Doctor suggests it for apps that skip the proxy, and `cloakctl app-capture` controls it from Terminal.
+- **Safari extension:** the browser extension now comes inside Cloak Proxy for Safari too. Turn it on in Safari Settings › Extensions, pair it, and Safari's requests show their tab and frame, with console errors in bug reports. Safari can't record a single tab, so that stays Chrome, Edge, Brave and Firefox only.
+- **Installer package for teams:** `Cloak-Proxy.pkg`, signed and notarized, installs Cloak Proxy from a device management service or `sudo installer`. Sample configuration profiles pre-approve the network extension, lock update checks and turn the Safari extension on for everyone.
+
+### Changed
+- The MCP server has 133 tools (`app_capture_status`, `set_app_capture`). Assistants can read App Capture's state; turning capture on for an app always asks you in Cloak Proxy first.
+- Settings › General › Updates shows its switches locked when a configuration profile sets them.
+- Uninstalling: remove App Capture's network extension first (Remove Extension…); the Homebrew cask does it for you.
+
+### Fixed
+- The browser extension's manifest carries the app's version (it said 0.4.1 since 0.4.1).
+
 ## 0.4.2 (October 2026)
 
 Cloak Proxy is now **signed with a Developer ID and notarized by Apple**: it opens like any other app, with no Open Anyway step.
