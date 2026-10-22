@@ -30,7 +30,7 @@ Cloak Proxy decrypts HTTPS, lets you pause, mock and rewrite any request, catche
 | **Inspect** | JSON tree, jq and JSONPath, Protobuf, request diffs, copy as cURL or 21 other languages, types from JSON |
 | **Share** | HAR, Charles sessions, CSV, Postman collections and OpenAPI, with secret redaction |
 | **AI and security** | LLM Inspector (tokens, cost, time to first token and prompt-cache misses for OpenAI, Anthropic, Gemini and Ollama) and an Authorization Matrix that replays traffic as another user to find IDOR bugs |
-| **Automate** | An MCP server with 133 tools for Claude Code, Cursor and Codex, with secrets redacted, and `cloakctl` for headless runs in CI |
+| **Automate** | An MCP server with 148 tools for Claude Code, Cursor and Codex, with secrets redacted, and `cloakctl` for headless runs in CI |
 
 <table>
   <tr>

@@ -2,6 +2,43 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.5.1 (October 2026)
+
+For the Mac and the Linux beta. Security testing for your own APIs, native gRPC through decryption, and an MCP server with 148 tools.
+
+### New
+- **Scope:** list the hosts and paths you're allowed to test (include and exclude rules, or a Burp Suite scope). Replays, the Authorization Matrix and the fuzzer stay inside it, traffic outside it can be left unrecorded or blocked, and an assistant's request to widen it waits for your Allow. `cloakctl scope`, `cloakctl run --scope FILE`.
+- **Tokens and sign-in:** every bearer token, JWT and session cookie in the traffic, with claims, expiry, where it came from and where it was sent, and each OAuth/OIDC sign-in as one timeline, with checks for weak signatures, missing expiry, tokens in URLs and sign-ins without `state` or PKCE. Passive: nothing is sent.
+- **Request fuzzer:** payload positions, four attack modes and payload lists, with a rate cap, a confirmation, and only hosts in the scope. `cloakctl fuzz`.
+- **API scan (Insights):** likely IDOR, mass assignment, missing rate limits, verbose errors, weak JWTs, CORS problems, GraphQL introspection and oversized queries, and request-smuggling signals, each with evidence and a fix. Passive.
+- **Findings and reports:** severity, CVSS 3.1/4.0, CWE and OWASP references and redacted evidence; Add to Findings from the traffic list, inspector, Authorization Matrix, Insights, the fuzzer and AI Security; reports as PDF, HTML, Markdown, JSON, SARIF or Burp XML. `cloakctl findings`.
+- **AI security:** flags prompt injection in tool results, MCP results and tool descriptions; pins each MCP server's tools and shows a diff when they change; checks prompts leaving for a model provider for keys and personal data (warn, redact or block).
+- **Limit what AI assistants can see:** keep an MCP client to one app, some hosts, a query or highlighted requests, with or without bodies (Settings › AI Assistants). `cloakctl mcp --app/--host/--scope/--metadata-only` narrows it per connection.
+- **Insomnia imports:** v5 YAML as well as v4 JSON and YAML, with every auth type, bodies, scripts, folders, environments and the cookie jar, and a list of anything that didn't come across.
+- **Map Remote prefix swap** and **a pattern tester in every rule editor** (`cloakctl rules TOOL test`).
+- **Cookie settings per request** in the API client.
+
+### Improved
+- Cloak Proxy removes `Alt-Svc` from decrypted responses so apps stay off HTTP/3 (Settings › General › HTTP/3).
+- The certificate check reads Keychain Access's Never Trust setting, shows Valid until, and warns before the certificate expires.
+- The Doctor finds why an iPhone or iPad sends nothing (Allow other devices, the macOS firewall, Internet Sharing) and notices booted simulators without the certificate.
+- HAR files carry cookies, real timings, WebSocket messages and a marker on cut bodies, and the Summary tab shows timing rows.
+- Left running for days: abandoned connections close after 10 idle minutes, the open-file limit is raised, the DNS cache is bounded and the log rotates.
+- Accessibility: status dots have a shape as well as a color, VoiceOver reads each request as one sentence, every control has a name, and the app follows Increase Contrast and Reduce Motion.
+- The MCP server has 148 tools.
+
+### Fixed
+- Native gRPC works through decryption: `grpc-status`, `grpc-message` and trailing metadata reach the app, and a new Trailers tab shows them. gRPC requests keep `TE: trailers`.
+- WebSocket messages of any size pass through (the record keeps the first 1 MB), and `wss://` servers with a self-signed certificate or client certificates work.
+- Uploads that wait for `Expect: 100-continue` no longer stall.
+- A lost `adb reverse` is reported, with Re-run adb reverse.
+- In the API client, cookies set on a redirect reach the next request, and a custom root certificate on realtime connections adds to the system's roots.
+- Safari: the extension's popup no longer asks you to allow websites after Always Allow on Every Website.
+
+### Linux beta
+- Long sessions move big bodies to files, Install Everywhere covers Flatpak browsers and Firefox 147, removing the package stops trusting the certificate, no more blank window on NVIDIA, and a crashed proxy isn't restored.
+- The engine changes above apply. The security testing tools have no windows on Linux yet: they work through `cloakctl` and the MCP tools.
+
 ## 0.5.0 (October 2026)
 
 Mac only: the Linux beta stays on 0.4.2.
@@ -34,7 +71,7 @@ Cloak Proxy is now **signed with a Developer ID and notarized by Apple**: it ope
 - **Optional anonymous install counts** (off by default) and a **login check** that restores your network settings after a crash (Settings › General, off by default).
 
 ### Improved
-- Large downloads stream straight through instead of being held in memory (the record keeps the first 32 MB), quiet streams and long-polls aren't cut after 2 minutes, `te: trailers` reaches gRPC servers, and apps that wait for the server to speak first (SMTP, SSH, databases) work through CONNECT.
+- Large downloads stream straight through instead of being held in memory (the record keeps the first 32 MB), quiet streams and long-polls aren't cut after 2 minutes, and apps that wait for the server to speak first (SMTP, SSH, databases) work through CONNECT.
 - Certificates follow the name the app asks for (SNI) when it connects by IP address, and handle hosts with a trailing dot.
 - Scripts stop after 5 seconds instead of hanging every request, see binary bodies as `bodyBytes`, and keep header order.
 - OAuth 2 tokens refresh automatically before they expire (with an off switch); the token request follows the request's SSL setting. API client WebSocket and gRPC requests can go through Cloak Proxy.
