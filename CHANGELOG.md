@@ -2,6 +2,15 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.5.3 (October 2026)
+
+Mac only: the Linux beta stays on 0.5.1.
+
+### Fixed
+- **Deleting in the API client no longer crashes:** deleting a collection, folder or request while its editor was open (for example a Make Tests collection showing its generated docs) crashed the app every time. Its tabs now close first; nothing was lost, because the delete hadn't been saved yet.
+- **Wildcard highlight rules match:** a pattern such as `*.example.com`, `example.com/*` or `https://*.example.com/*` in a rule's Applies to or the query bar is a URL pattern, read the way Map Local reads it, and so is `url:` with a `*`. `host:example.com:8443` checks the port, and a pattern that can never match in `host:` is flagged with a one-click fix.
+- **Highlight Similar Requests** colors the request it was made from, and the rule editor says why a rule colors fewer requests than expected.
+
 ## 0.5.2 (October 2026)
 
 Mac only: the Linux beta stays on 0.5.1.
