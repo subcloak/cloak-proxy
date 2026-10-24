@@ -2,6 +2,16 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.5.2 (October 2026)
+
+Mac only: the Linux beta stays on 0.5.1.
+
+### New
+- **Copy the paused request:** the Breakpoint window has a **Copy** menu (Copy URL, Copy as cURL, Copy as any code format, Copy Request, and Copy Response when a response is paused). It copies the message as Execute would send it, edits included, and the message stays paused.
+
+### Fixed
+- Searching the docs for "IDOR" or "BOLA" (`search_docs`, `cloakctl docs-search`) finds the Authorization Matrix first again, then API scan.
+
 ## 0.5.1 (October 2026)
 
 For the Mac and the Linux beta. Security testing for your own APIs, native gRPC through decryption, and an MCP server with 148 tools.
