@@ -2,6 +2,20 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.5.4 (October 2026)
+
+Mac only: the Linux beta stays on 0.5.1.
+
+### New
+- **In-app updates:** Check for Updates… shows the release notes, and **Install and Relaunch** downloads the new version, checks that it's signed by Subcloak, and installs and reopens it. Homebrew installs are pointed to `brew upgrade --cask cloak-proxy`. This version is the first that updates itself; 0.5.3 and earlier update by hand.
+- **Focus mode:** right-click apps or hosts and choose **Focus on These**, or use the toolbar's **Focus** button. Only those are recorded; everything else passes through untouched, neither decrypted nor listed. A banner shows what's in focus, and **Stop Focusing** is one click. `cloakctl focus`.
+- **Mute a host or a whole domain**, next to Mute App, in one Muted apps and hosts list. `cloakctl mute host`.
+
+### Improved
+- **Stays light when left running:** Settings › General › Capture keeps the last 100,000 requests and a week of traffic by default (up to 500,000 requests, or no age limit). The oldest are trimmed in the background, never highlighted, commented or Findings requests. A kept session larger than 100,000 requests is trimmed once it loads, so save it to a file first if you need all of it. `cloakctl retention`.
+- **No freezes under heavy traffic:** moving large bodies to disk no longer happens on the main thread.
+- The MCP server has 151 tools (`set_focus`, `mute_host`, `set_retention`).
+
 ## 0.5.3 (October 2026)
 
 Mac only: the Linux beta stays on 0.5.1.
