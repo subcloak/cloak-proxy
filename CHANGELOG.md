@@ -2,6 +2,14 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.5.5 (October 2026)
+
+Mac only for now: the Linux beta (0.5.1) has the same crash, and its fix follows in the next Linux release.
+
+### Fixed
+- **Crafted JSON can no longer crash the app:** a response, file or message with a broken Unicode escape (as short as `{"a":"\ud800A"}`) crashed Cloak Proxy wherever it read JSON, including live capture analysis, the JSON viewer and inspectors, Generate Types, the API client, imports, AI replies, the MCP server and `cloakctl`. A broken escape now reads as the replacement character "�".
+- **Out-of-range numbers can no longer crash it either:** a huge duration in an imported HAR or session file, a token count or `expires_in` from an AI or OAuth reply, or a stream timeline that goes backwards is clamped instead of crashing.
+
 ## 0.5.4 (October 2026)
 
 Mac only: the Linux beta stays on 0.5.1.
