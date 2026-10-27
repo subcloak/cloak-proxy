@@ -2,6 +2,32 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.6.0 (October 2026)
+
+Mac only: the Linux beta stays on 0.5.1. Cloak Proxy is still free for life and never needs an account. This version adds Personal Cloud, an optional paid plan, and fixes crashes that crafted input could cause in 0.5.5.
+
+### New
+- **Personal Cloud (optional, paid):** sync your setup between your Macs and share captured requests as links, end-to-end encrypted: your Macs encrypt everything before it's uploaded, and the keys never leave them and your Recovery Kit. $3 a month or $25 a year; the first 50 yearly subscribers pay $20 for their first year. There's no free trial: buy it in **Settings › Cloud**, and get a full refund within 30 days, no questions asked. Payments go through Polar.
+- **Sync between Macs:** rules, mock sets, API client workspaces and environments, scopes, saved queries, highlight rules and saved filters, on up to 5 Macs with 5 GB of storage. **Settings › Cloud › What syncs** chooses what goes up; workspaces from another Mac show as **Not on this Mac**, with **Add to This Mac…**, and **Sync This Workspace…** turns on sync from the API client.
+- **Add a Mac by approving it** from one you already use, after comparing the codes both Macs show. A new Mac then offers **Restore this Mac** in one step, followed by a **Finish setting up** checklist: install this Mac's own certificate (it's never synced), turn on the proxy, and review anything that arrived switched off.
+- **Recovery Kit:** a one-page PDF that gets everything you sync back on a new Mac, even if you lose every Mac. The kit signs a new Mac in by itself: no email code needed.
+- **Changes from your other Macs that could run code, read files or change what's captured wait for you:** scripts, Map Local and similar rules, mock sets and workspace scripts arrive switched off, and a change to the active scope, to decryption and proxy settings, to a secret value or to the active environment is held. Settings › Cloud › Sync issues asks you to **Review changes** before they apply, naming the Mac each change came from. Until you approve a request another Mac changed, it's sent without your credentials, variables or cookies.
+- **Security code:** a 12-digit code in Settings › Cloud › Devices. Compare it on your Macs to check they agree on which computers can read your data.
+- **Share links:** select requests and choose **Share Link…**, or use **File › Share Session…** or **File › Share File…** for a saved `.har` or `.cloaksession`. Known secret formats are redacted by default (redaction covers common formats, not every one), **Hide all body values** hides every body, query, path and header value except a few headers that describe the message (Content-Type, Accept, Accept-Encoding, Accept-Language, User-Agent, Content-Encoding, Transfer-Encoding, Connection, Date) and keeps the method, host, header names, plain field names and the structure, and links can have a password, a view limit and an expiry of up to 30 days. The recipient opens the link in a browser, read-only, and can copy any request as cURL, fetch or Python. If the leak check finds something, or can't fully check a large body, Cloak Proxy asks before creating the link.
+- **See who opened a link:** **File › Share Links…** lists each link's views, views left, when it was last opened and from which country, with **Revoke**. `cloakctl share` creates, lists and revokes links.
+- **Delete your Cloud account** from Settings › Cloud › **Delete Account…**. The deletion always waits 72 hours, and the email we send has a link that cancels it, as does any of your Macs.
+- **Buy and set up on your first Mac:** until your encryption key exists, only the computer you signed in on first can buy Personal Cloud and set it up, so someone who can read your email can't take setup over.
+- The MCP server has 154 tools (`create_share_link`, `list_share_links`, `revoke_share_link`). An assistant's link always asks you first, is always redacted and lasts at most 7 days; `hide_body_values` does what **Hide all body values** does.
+
+### Changed
+- Live sharing on your network refuses queries that use `tag:`, `rule:`, extracted columns (`col.`) or `is:highlighted`, since highlight and extract rules can now change on another Mac.
+
+### Fixed
+- **Crafted traffic and files can no longer crash the app:** a request body with deeply nested GraphQL (`{"query":"{a{a{a…"}`) from any app or page crashed 0.5.5 while it named the operation. The same kind of crash is fixed for deeply nested YAML in imported specs and Insomnia exports, a Charles settings file nested very deep or with an out-of-range rewrite group number, an Insomnia folder that contains itself, a Postman example with a huge status code, negative status codes in session files, examples and rules, and a flow Repeat count past what the app can count.
+- **A `CONNECT` to port 70000 or -1 can no longer crash the proxy** when an upstream SOCKS5 proxy is set. Ports outside 1 to 65535 are refused.
+- **Copy as cURL is safe to paste:** a request with an unusual method, or with control or bidirectional characters in its URL, headers or body, could produce a command that ran something else when pasted into a terminal. Every copy format now quotes the method and escapes those characters, and Copy as Python writes `True`, `False` and `None` from JSON bodies.
+- **`pm.sendRequest` and `pm.execution.runRequest` work again in scripts:** in the released app, a script that awaited either one never got its answer and failed with "a promise that never settles", and `pm.sendRequest(url, callback)` without `await` was never sent. Both now work, and the callback form runs before the script finishes.
+
 ## 0.5.5 (October 2026)
 
 Mac only for now: the Linux beta (0.5.1) has the same crash, and its fix follows in the next Linux release.

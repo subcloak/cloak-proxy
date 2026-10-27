@@ -15,7 +15,7 @@
 
 Cloak Proxy decrypts HTTPS, lets you pause, mock and rewrite any request, catches apps that ignore the system proxy, and lets Claude or any MCP client drive it.
 
-- **Free for life.** No trial, no paid tier, no account, no sign-up.
+- **Free for life.** No trial, no license key, no account, no sign-up. Optional: [Personal Cloud](https://docs.subcloak.com/cloak-proxy/cloud/overview/) ($3 a month or $25 a year) adds end-to-end encrypted sync between your Macs and share links; nothing in the app needs it.
 - **Native and universal.** Swift, for Apple silicon and Intel, macOS 14 Sonoma or later.
 - **Local only.** No telemetry. Traffic, collections and the root certificate's key stay on your Mac.
 
@@ -59,7 +59,7 @@ Or with Homebrew: `brew install --cask subcloak/tap/cloak-proxy`.
 
 ## Why it's free, and why the source isn't public
 
-Subcloak is a security testing company: we test web apps, APIs and AI agents for a living, and a debugging proxy is open on our screens all day. We built Cloak Proxy for our own work and give it away. Security testing pays for it, so there's no paid tier to upsell and no data to sell: the app has no account, no analytics, and update checks are off until you turn them on.
+Subcloak is a security testing company: we test web apps, APIs and AI agents for a living, and a debugging proxy is open on our screens all day. We built Cloak Proxy for our own work and give it away. Security testing pays for it, so nothing in the app is held back to upsell and there's no data to sell: the app has no account, no analytics, and update checks are off until you turn them on. The one paid extra, Personal Cloud, is optional, end-to-end encrypted, and only for syncing between your own Macs and sharing links.
 
 The app's source isn't public. The in-app SDK, [CloakProxyKit](https://github.com/subcloak/CloakProxyKit), is MIT. Releases are signed and notarized by Apple, and [SECURITY.md](SECURITY.md) explains how to report issues.
 
