@@ -2,6 +2,46 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.6.1 (October 2026)
+
+Mac only: the Linux beta stays on 0.5.1. Lighter on your Mac when left open for days, dozens of crash and correctness fixes, and your plan always in view.
+
+### New
+- **Your plan, upfront:** a **Free** or **Personal Cloud** pill next to the status capsule in the toolbar opens a Plans view: what's free, what Personal Cloud adds, its price and the founding offer while it lasts. **Cloak Proxy › Get Personal Cloud…** opens the same view, and so do `cloakproxy://cloud/get` links, which only show it. Nothing starts without a click.
+- **"subcloak"** in the sidebar header opens subcloak.com.
+
+### Faster
+- **Light when left open:** autosave writes only what changed instead of rewriting the whole session file every 30 seconds; idle timers pause while no window is visible; the traffic table and sidebar no longer redo work for the whole session on every redraw. On a test Mac, idle CPU with the window visible went from about 3.8% to 0.4%.
+- **Large responses:** when a response breakpoint, response script or body rewrite matches a response over 64 MB, the response now streams through unchanged and the request is tagged with the tool that was skipped, instead of being held in memory.
+
+### Fixed
+- **Crashes from crafted input:** huge, negative or not-a-number values in captured traffic, imported files, MCP tool arguments and the control API (limits, timeouts, ports, token counts, dates, protobuf durations, JSONPath steps, network conditions, Socket.IO and MQTT settings) can no longer crash the app. A damaged autosave no longer crashes every launch.
+- **Hangs from crafted documents:** YAML alias bombs, self-referencing OpenAPI schemas and contract checks, GraphQL fragment fan-out, deeply nested JSONPath filters and self-multiplying `{{variables}}` are now bounded.
+- **Wrong results:**
+  - a POST body sent right after its headers is no longer lost with DNS capture, and neither is data sent right after a SOCKS5 CONNECT;
+  - breakpoints check every matching rule, not just the first;
+  - Rewrite keeps the query's encoding and updates the Host header when it changes the host;
+  - backslashes in quoted query terms are kept;
+  - copy as code no longer keeps `Content-Encoding: gzip` with a decoded body;
+  - host rules, including SSL Proxying exclusions, also match a name with a trailing dot;
+  - DNS Spoofing entries are trimmed;
+  - "Include subpaths" stops at path boundaries (`/api` no longer matches `/apiv2`);
+  - cURL for a HEAD request no longer adds a body that curl refuses;
+  - Map Local strips its folder prefix the same way it matches;
+  - JavaScript exports keep large integer IDs exact.
+- **Collection runs:** `pm.execution.runRequest("Name")` finds a request by name or folder path in the collection being run, and a huge or invalid request delay no longer crashes the runner (`--delay-request` refuses it).
+- **Autosave** is flushed to disk before it replaces the old file, a save cut short no longer leaves a hidden copy behind, and a failed save is retried.
+- **API client workspaces:** a workspace folder that was moved, renamed or reached through a symlink, or a git branch checked out without the workspace, is now shown as unavailable instead of being replaced with the starter workspace. This applies in the app, `cloakctl` and AI assistants' workspace tools. Your secrets file is never overwritten, and Personal Cloud no longer syncs the gap as deletions. A reload that lands mid-move waits for the folder to settle instead of reading it as empty.
+- **Toxiproxy API:** parallel edits all land.
+- **MCP:** closing a stdio MCP server that stopped reading no longer hangs.
+- **Personal Cloud:**
+  - a stale change from a removed or stolen Mac no longer stops sync for everyone: it is ignored, that Mac is named in Sync issues, and anything that looks like the server rolling back still stops sync;
+  - signing out and back in no longer stops sync;
+  - **Put Back** on a Mac set up after another Mac was removed no longer deletes a record on your other Macs;
+  - security hardening (an unreadable record from another Mac is held and named while the rest keeps syncing; approvals wait while a security question is open; Recovery Kit and join checks).
+- **Settings › Certificate:** each state of the install button has its own title and tooltip, and buttons that can't do anything yet are off.
+- **Polish:** the JSON tree's Value column takes the spare width, inspector tabs fit narrow panes, clearer JWT warnings, consistent Settings footers and empty states, Title Case buttons, and the AI consent sheets show the app icon.
+
 ## 0.6.0 (October 2026)
 
 Mac only: the Linux beta stays on 0.5.1. Cloak Proxy is still free for life and never needs an account. This version adds Personal Cloud, an optional paid plan, and fixes crashes that crafted input could cause in 0.5.5.
