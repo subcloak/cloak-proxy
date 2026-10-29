@@ -2,6 +2,14 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.7.2 (October 2026)
+
+Mac only. Team Cloud fixes.
+
+### Fixed
+- **Team Cloud didn't start until Settings was opened:** it now starts as soon as Cloak Proxy knows you're signed in, so team invitations, the Team menu and the team's sets show at once.
+- **A team invitation link** now waits for your invitations to load, opens Settings › Team at the invitation, and, when this Mac is signed in with a different address, says which one.
+
 ## 0.7.1 (October 2026)
 
 Mac only. Fixes for 0.7.0.
