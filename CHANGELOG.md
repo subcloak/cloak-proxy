@@ -2,6 +2,46 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.7.0 (October 2026)
+
+Mac only: the Linux beta stays on 0.5.1. Cloak Proxy 0.7.0 for the Mac adds **Team Cloud**, a paid plan for teams: shared workspaces, rule sets and mock sets, a secrets vault with per-person access, reviews, a team session library, CI access and live pair debugging, end-to-end encrypted, with a web console for billing, members, SSO, SCIM, policies and a 1-year audit log. Cloak Proxy itself stays free for life, with no account, and Personal Cloud is unchanged. Update with **Check for Updates…**.
+
+### New
+
+- **Team Cloud.** $5 a seat a month, or $48 a seat a year ($4 a month), 2 seats minimum, plus tax. Founding offer: 30% off the first year for the first 20 teams of 10 or more seats (they keep at least 10 seats and the same plan for that year). Buy it in the console at console.subcloak.com; owners and billing managers don't need a seat. A full refund of any team payment within 30 days, on request. A Team seat doesn't include Personal Cloud.
+- **End-to-end encrypted, with the keys on members' Macs**, the CI tokens admins create and a printed **Team Recovery Kit**. Subcloak can't read your team's data (unless automatic approval after SSO is on, which trusts your identity provider and our server to admit Macs), except what you publish to monitors and hosted mocks (marked \*). The team's members, roles and Macs are a signed list that every Mac checks, and a person's first Mac joins only after they and an admin compare a 6-digit code, and their further Macs after they compare one with a Mac of their own (or automatically after SSO, if an admin turns that on).
+- **Spaces**: team workspaces with live updates, shared rule sets and mock sets (fill one with **Add From This Mac…**, and switch each one on per Mac in **Rules › Team Sets**; a rule or mock set applies once a manager of the set has approved its content, in **Held Items…**), a session library, Findings and shared agent setups. Spaces are open to the team or restricted to the people you choose; roles are Viewer, Editor and Manager. **Move to a Restricted Space…** copies an open space into a new restricted one.
+- **Team vault**: folders of secrets that only listed people can open, used in requests as `{{vault:team/NAME}}` and filled in on your Mac when a request is sent, only to the hosts set on each item. Reveal and Copy need Touch ID or your login password; Cloak Proxy's own MCP tools and AI assistants never get team vault values (a shared MCP server you install gets the values its approved version names, through `cloakctl mcp-exec`).
+- **Protected sets and reviews**: editors propose, managers approve in the **Reviews** window, and every Mac checks the approval. Self-approval is refused.
+- **Comments and @mentions** on any team item, with an **Activity** popover and email notifications that never contain comment text.
+- **Team Findings and Report Bug to the team**, with assignees.
+- **CI**: tokens made in **Settings › Team › CI** let `cloakctl run --team-mocks … --team-rules … --upload --library …` apply team sets in a CI job and upload the recording to the library. `cloakctl team pull`, `team whoami` and `team audit verify`.
+- **Live pair debugging**: share your live capture with up to 10 teammates in a read-only window, end-to-end encrypted through Subcloak's relay.
+- **Monitors\*** with Slack, PagerDuty, Opsgenie, webhook and email alerts, and **hosted mocks\*** at an unguessable public URL. Both run on Subcloak's servers and are not end-to-end encrypted: the app says so before you publish, and each secret you include needs its own tick.
+- **Shared MCP servers and agent setups**: install for Claude Code or Codex; secrets are vault references that `cloakctl mcp-exec` fills in for each person when the server starts; a server a teammate changes doesn't start until you approve the change, and a literal secret is refused.
+- **Admin policies**, each labelled with who enforces it: Subcloak's server or Cloak Proxy on each Mac.
+- **A 1-year audit log**, metadata only, chained and checked by admins' Macs, with JSONL and CSV export. **90-day version history** and **Recently Deleted** for every team item.
+- **SSO** with OIDC (Okta, Microsoft Entra ID, Google Workspace and other OIDC providers; SAML coming later) and **SCIM** for Okta and Entra ID, at no extra charge. SSO never gives a Mac the team's keys unless an admin turns on automatic approval after SSO (off by default).
+- **Support**: a first reply within 1 business day at team-support@subcloak.com (**Help › Contact Team Support**), and a 30-minute onboarding call for yearly teams of 10 or more seats.
+- **A new managed preference, `CloudPersonalDisabled`**, turns off Personal Cloud but leaves Team Cloud on. `CloudDisabled` turns off both.
+
+### Changed
+
+- When Send follows a redirect to another origin (another host, port or scheme, such as https to http), it sends only standard headers there (Accept, Accept-Language, Accept-Encoding, User-Agent, Content-Type, Cache-Control, Pragma). Authorization, cookies, API-key headers and your custom headers stay with the host you sent them to.
+- A URL whose port isn't between 1 and 65535 is refused, wherever it comes from (a request, a redirect, a Map Remote or Rewrite rule).
+
+### Fixed
+
+- Everything in 0.6.1, which 0.7.0 includes.
+
+### Known issues
+
+- Team commands in the Linux `cloakctl` (for Linux CI runners) come in a later release; CI on macOS runners works now.
+- An editor of a team set can reorder its approved items (not add, change or remove them) without a manager's approval. For rule types where the first match wins, that can change which approved rule applies. Target: 0.7.1. (R16B-I4)
+- Each change of the team key adds to the members' inbox keyring rows, now bounded only by the size of a rotation. Target: 0.7.1. (R16B-I1)
+- When a member's Mac changes the team key (after they remove a Mac of their own), the first copies of each space key saved for the new key win. A member can make those copies ones a newly added Mac can't open, or ones other Macs refuse. Macs that already had the keys are fine again once an admin's Mac next changes the team key; a Mac added in that window may stop syncing and need to be removed and added again. Target: 0.7.1. (R14B-M1)
+- Each change of the team key makes every Mac that writes create new space keys, which count against the 15,000 a team can hold. A member can change the team key by adding and removing Macs of their own, up to 10 a day. Target: 0.7.1. (R14B-M2)
+
 ## 0.6.1 (October 2026)
 
 Mac only: the Linux beta stays on 0.5.1. Lighter on your Mac when left open for days, dozens of crash and correctness fixes, and your plan always in view.
