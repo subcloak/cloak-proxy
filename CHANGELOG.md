@@ -2,6 +2,15 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.7.1 (October 2026)
+
+Mac only. Fixes for 0.7.0.
+
+### Fixed
+- **Personal Cloud and Team Cloud were hidden in 0.7.0:** the plan pill, Settings › Cloud and Settings › Team are back, and Personal Cloud sync carries on as before.
+- **Settings didn't open from links and shortcuts** on macOS 14 and later (a team invitation, a Doctor fix, the command palette's Settings entries): they open Settings at the right page again.
+- **A team invitation link** on a Mac not yet signed in with the invited address now explains what to do and offers Sign In, instead of doing nothing.
+
 ## 0.7.0 (October 2026)
 
 Mac only: the Linux beta stays on 0.5.1. Cloak Proxy 0.7.0 for the Mac adds **Team Cloud**, a paid plan for teams: shared workspaces, rule sets and mock sets, a secrets vault with per-person access, reviews, a team session library, CI access and live pair debugging, end-to-end encrypted, with a web console for billing, members, SSO, SCIM, policies and a 1-year audit log. Cloak Proxy itself stays free for life, with no account, and Personal Cloud is unchanged. Update with **Check for Updates…**.
