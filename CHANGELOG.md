@@ -2,6 +2,23 @@
 
 Full release notes, with links to the docs for each feature: https://docs.subcloak.com/cloak-proxy/reference/release-notes/
 
+## 0.7.4 (October 2026)
+
+Mac only. Joining a team, reworked.
+
+### Changed
+- **Settings › Team says what's next and who has to act.** A team without keys asks its first admin to Set Up Team Keys and tells everyone else it isn't set up yet, instead of offering a Join that waits on nobody. Waiting for approval says to ask an admin, and that the request lasts 10 minutes.
+- **Admins get a notification** when someone asks to join, so a request doesn't lapse unseen.
+- **Add This Mac:** a second or replacement Mac of someone already in the team asks to be added, instead of showing an empty Team section.
+- **The Team menu** shows only Team Settings and Open Console until this Mac is in a team.
+- **Recover with the Recovery Kit** is a quiet link, offered only where it can help.
+
+### Fixed
+- **Set Up Team Keys and Recover Team with Recovery Kit opened the wrong window** ("What Subcloak can see in a team") on a Mac not yet in the team.
+- **The Plans view said Team Cloud was coming** until Settings › Cloud had been opened. It shows Team Cloud's prices at once.
+- **A request to join kept waiting after relaunch** without ever showing the code, and an expired one left this Mac unable to ask again. It now resumes, and after a lapse Join starts afresh.
+- **Settings › Team** reads your teams again each time it opens, so changes made in the console show without restarting.
+
 ## 0.7.2 (October 2026)
 
 Mac only. Team Cloud fixes.
